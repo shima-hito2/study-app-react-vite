@@ -1,5 +1,4 @@
 import { Box, List } from '@mui/material'
-import React from 'react'
 import MainListItems from './SideListItems'
 import { styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
@@ -32,7 +31,11 @@ const Drawer = styled(MuiDrawer, {
 	}
 }))
 
-const CustomSidebar = props => {
+type Props = {
+	open: boolean
+}
+
+const CustomSidebar = (props: Props) => {
 	return (
 		<>
 			<Drawer

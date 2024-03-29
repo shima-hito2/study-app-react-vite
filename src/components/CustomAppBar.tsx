@@ -6,7 +6,12 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { CssBaseline } from '@mui/material'
 
-const CustomAppBar = props => {
+type Props = {
+	toggleDrawer: () => void
+	title: string
+}
+
+const CustomAppBar = (props: Props) => {
 	return (
 		<Box sx={{ flexGrow: 1, height: 64 }}>
 			<CssBaseline />
