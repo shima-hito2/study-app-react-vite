@@ -6,7 +6,7 @@ import {
 	Select,
 	TextField
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import RegistButton from '../../../components/RegistButton'
 import Loading from '../../../components/Loading'
 
@@ -16,14 +16,14 @@ const RegistTask = () => {
 	const [code, setCode] = useState('')
 	const [style, setStyle] = useState('')
 	const [detail, setDetail] = useState('')
-	const [rows, setRows] = useState([])
+	const [rows, setRows] = useState<{ id: string, name: string }[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
 	const color = import.meta.env.VITE_APP_BACK_COLOR
 	const url = import.meta.env.VITE_APP_URL
 
 	useEffect(() => {
-		; (async () => {
+		(async () => {
 			await setSubjectList()
 		})()
 	}, [])
@@ -36,11 +36,12 @@ const RegistTask = () => {
 		setIsLoading(false)
 	}
 
-	const form = document.getElementById('RegistTaskForm')
+	const form = document.forms[0]
+	// const form = document.getElementById('RegistTaskForm')
 
 	const handleRegist = async () => {
 		const formData = new FormData(form)
-		const action = form.getAttribute('action')
+		const action = form.getAttribute('action') ?? ''
 		const options = {
 			method: 'POST',
 			body: formData
@@ -109,28 +110,24 @@ const RegistTask = () => {
 							style={{ display: 'none' }}
 						/>
 						<textarea
-							type='text'
 							name='detail'
 							value={detail}
 							readOnly
 							style={{ display: 'none' }}
 						/>
 						<textarea
-							type='text'
 							name='code'
 							value={code}
 							readOnly
 							style={{ display: 'none' }}
 						/>
 						<textarea
-							type='text'
 							name='style'
 							value={style}
 							readOnly
 							style={{ display: 'none' }}
 						/>
 						<textarea
-							type='text'
 							name='subject_id'
 							value={subject}
 							readOnly

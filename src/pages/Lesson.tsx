@@ -1,12 +1,12 @@
 import React from 'react'
 import Loading from '../components/Loading'
 import { useState } from 'react'
-import { Box, Button, Tab, TextField } from '@mui/material'
+import { Box, Tab, TextField } from '@mui/material'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 
-const DetailTab = props => {
+const DetailTab = (props: { detail: string, style: string; code: string }) => {
 	return (
 		<>
 			<Box fontSize='h6.fontSize' sx={{ whiteSpace: 'pre-line' }}>
@@ -32,7 +32,9 @@ const DetailTab = props => {
 	)
 }
 
-const CodeTab = props => {
+const CodeTab = (props: {
+	code: string; isAnswer: boolean, setTabCode: React.Dispatch<React.SetStateAction<string>>, style: string, setTabStyle: React.Dispatch<React.SetStateAction<string>>
+}) => {
 	return (
 		<>
 			<Box
@@ -99,14 +101,14 @@ const Lesson = () => {
 	const [tabStyle, setTabStyle] = useState('')
 
 	const params = useParams()
-	const subjectId = params.subjectId
+	const subjectId = params.subjectId?.toString() ?? ''
 	const taskId = params.taskId
 
 	const color = import.meta.env.VITE_APP_BACK_COLOR
 	const url = import.meta.env.VITE_APP_URL
 
 	useEffect(() => {
-		; (async () => {
+		(async () => {
 			setIsLoading(true)
 			const formData = new FormData()
 			formData.append('id', subjectId)
@@ -140,7 +142,7 @@ const Lesson = () => {
 					</Box>
 					<Box>
 						<Box
-							size='small'
+							// size='small'
 							sx={{
 								cursor: 'pointer',
 								textDecoration: 'underline',
@@ -159,7 +161,7 @@ const Lesson = () => {
 					<TabContext value={tabValue}>
 						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 							<TabList
-								onChange={(e, newValue) => {
+								onChange={(_e, newValue) => {
 									setTabValue(newValue)
 								}}
 								aria-label='lab API tabs example'
@@ -190,6 +192,8 @@ const Lesson = () => {
 								code={code}
 								style={style}
 								isAnswer={true}
+								setTabCode={setTabCode}
+								setTabStyle={setTabStyle}
 							/>
 						</TabPanel>
 					</TabContext>

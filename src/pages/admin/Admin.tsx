@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import CustomAppBar from '../../components/CustomAppBar'
 import CustomSidebar from '../../components/CustomSidebar'
 // import Top from './Top'

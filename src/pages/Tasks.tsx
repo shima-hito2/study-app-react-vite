@@ -1,5 +1,4 @@
 import { Box, ListItemButton, ListItemText } from '@mui/material'
-import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
@@ -7,16 +6,16 @@ import Loading from '../components/Loading'
 
 const Tasks = () => {
 	const params = useParams()
-	const subjectId = params.subjectId
+	const subjectId = params.subjectId ?? ''
 	const [title, setTitle] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
-	const [taskList, setTaskList] = useState([])
+	const [taskList, setTaskList] = useState<{ id: string, title: string }[]>([])
 
 	const color = import.meta.env.VITE_APP_BACK_COLOR
 	const url = import.meta.env.VITE_APP_URL
 
 	useEffect(() => {
-		; (async () => {
+		(async () => {
 			setIsLoading(true)
 			const formData = new FormData()
 			formData.append('id', subjectId)

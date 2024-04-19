@@ -35,7 +35,7 @@ const AdminMode = () => {
 }
 
 const UserMode = () => {
-	const [rows, setRows] = useState([])
+	const [rows, setRows] = useState<{ id: string, name: string }[]>([])
 	const params = useParams()
 	const subjectId = params.subjectId
 
@@ -48,7 +48,7 @@ const UserMode = () => {
 	}
 
 	useEffect(() => {
-		; (async () => {
+		(async () => {
 			await setSubjectList()
 			console.log(params)
 		})()
@@ -73,7 +73,7 @@ const UserMode = () => {
 	)
 }
 
-const Icons = props => {
+const Icons = (props: { name: string }) => {
 	switch (props.name) {
 		case 'HTML':
 			return <HtmlIcon />

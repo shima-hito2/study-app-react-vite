@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
 import RegistButton from '../../../components/RegistButton'
 import Table from '@mui/material/Table'
@@ -12,16 +12,16 @@ import Loading from '../../../components/Loading'
 
 const SubjectMaster = () => {
 	const [subject, setSubject] = useState('')
-	const [rows, setRows] = useState([])
+	const [rows, setRows] = useState<{ id: string, name: string }[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
-	const form = document.getElementById('SubjectMasterForm')
+	const form = document.forms[0]
 
 	const color = import.meta.env.VITE_APP_BACK_COLOR
 	const url = import.meta.env.VITE_APP_URL
 
 	useEffect(() => {
-		; (async () => {
+		(async () => {
 			await setSubjectList()
 		})()
 	}, [])
@@ -38,7 +38,7 @@ const SubjectMaster = () => {
 	const handleRegist = async () => {
 		if (!subject) return
 		const formData = new FormData(form)
-		const action = form.getAttribute('action')
+		const action = form.getAttribute('action') ?? ''
 		const options = {
 			method: 'POST',
 			body: formData
@@ -50,7 +50,7 @@ const SubjectMaster = () => {
 		alert('登録しました。')
 	}
 
-	const handleDelete = async argId => {
+	const handleDelete = async (argId: string) => {
 		const formData = new FormData()
 		formData.append('id', argId)
 		const options = {
