@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App.tsx'
-import Test from './Test.tsx'
-import Test2 from './Test2.tsx'
+import Top from './pages/Top.tsx'
+import Tasks from './pages/Tasks.tsx'
+import Lesson from './pages/Lesson.tsx'
+import Admin from './pages/admin/Admin.tsx'
+import SubjectMaster from './pages/admin/master/SubjectMaster.tsx'
+import RegistTask from './pages/admin/master/RegistTask.tsx'
 import './index.css'
 import {
     createHashRouter,
@@ -11,12 +14,32 @@ import {
 const router = createHashRouter([
     {
         path: "/",
-        element: <Test />,
+        element: <Top />,
+        children: [
+            {
+                path: "/task/:subjectId",
+                element: <Tasks />,
+            },
+            {
+                path: "/task/:subjectId/detail/:taskId",
+                element: <Lesson />,
+            }
+        ]
     },
     {
-        path: "/test",
-        element: <Test2 />,
-    }
+        path: "/admin",
+        element: <Admin />,
+        children: [
+            {
+                path: "/admin/subject",
+                element: <SubjectMaster />,
+            },
+            {
+                path: "/admin/task",
+                element: <RegistTask />,
+            }
+        ]
+    },
 ]);
 
 // ReactDOM.createRoot(document.getElementById('root')!).render(

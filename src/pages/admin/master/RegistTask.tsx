@@ -30,10 +30,15 @@ const RegistTask = () => {
 
 	const setSubjectList = async () => {
 		setIsLoading(true)
-		const res = await fetch(`${url}getSubjectAll`)
-		const data = await res.json()
-		setRows(data)
-		setIsLoading(false)
+		fetch(`${url}getSubjectAll`).then(async (res) => {
+			const data = await res.json()
+			setRows(data)
+			setIsLoading(false)
+		}).catch(() => {
+			alert('データ取得に失敗しました。')
+			setRows([{ id: '0', name: 'データなし' }])
+			setIsLoading(false)
+		})
 	}
 
 	const form = document.forms[0]

@@ -28,11 +28,16 @@ const SubjectMaster = () => {
 
 	const setSubjectList = async () => {
 		setIsLoading(true)
-		const res = await fetch(`${url}getSubjectAll`)
-		const data = await res.json()
-		setRows(data)
-		setIsLoading(false)
-		return res.status === 200
+		// const res = await fetch(`${url}getSubjectAll`)
+		fetch(`${url}getSubjectAll`).then(async (res) => {
+			const data = await res.json()
+			setRows(data)
+			setIsLoading(false)
+		}).catch(() => {
+			alert('データ取得に失敗しました。')
+			setRows([])
+			setIsLoading(false)
+		})
 	}
 
 	const handleRegist = async () => {

@@ -42,9 +42,13 @@ const UserMode = () => {
 	const url = import.meta.env.VITE_APP_URL
 
 	const setSubjectList = async () => {
-		const res = await fetch(`${url}getSubjectAll`)
-		const data = await res.json()
-		setRows(data)
+		fetch(`${url}getSubjectAll`).then(async (res) => {
+			const data = await res.json()
+			setRows(data)
+		}).catch(() => {
+			alert('データ取得に失敗しました。')
+			setRows([])
+		})
 	}
 
 	useEffect(() => {
